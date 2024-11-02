@@ -17,7 +17,7 @@ void solve(int n, vector<int> &arr) {
         for (int i=0; i+mid-1<n; i++) {
             int x = arr[i] + arr[i+1];
             if (x > arr[i+mid-1]) {
-                found = true;
+                found = true; 
                 break;
             }
         }
