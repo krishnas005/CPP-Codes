@@ -5,6 +5,7 @@
         "valarray": "cpp",
         "chrono": "cpp",
         "ostream": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "*.tcc": "cpp"
     }
 }
