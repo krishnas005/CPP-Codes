@@ -9,16 +9,31 @@ int32_t main() {
     int T;
     cin >> T;
     while (T--) {
-        int n, m, k;
-        cin >> n >> m >> k;
-        if(m == 1) {
-            cout << "No" << endl;
+        int n, m;
+        cin >> n >> m;
+        vector<int> arr(n);
+        for (int i = 0; i < n; ++i) {
+            cin >> arr[i];
         }
-        else {
-            int temp = (n+(m-1))/(m);
-            temp = n - temp;
-            if(k >= temp) cout << "No" << endl;
-            else cout << "Yes" << endl;
+        int maxx = *max_element(arr.begin(), arr.end());
+        for (int i = 0; i < m; ++i) {
+            char c;
+            int l, r;
+            cin >> c >> l >> r;
+
+            if (l <= maxx && maxx <= r) {
+                if (c == '+') {
+                    maxx += 1;
+                } else {
+                    maxx -= 1;
+                }
+            }
+            cout << maxx;
+            if (i != m - 1) {
+                cout << " ";
+            } else {
+                cout << "\n";
+            }
         }
     }
     return 0;
