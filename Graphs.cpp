@@ -135,7 +135,7 @@ bool isCycleDFSDirected(int start, vector<vector<int>> &adj, vector<bool> &visit
     inRecursion[start] = false;
     return false;
 }
- 
+
 // Detect cycle in a directed graph using DFS
 bool isCyclicDirected(int V, vector<vector<int>> adj)
 {
@@ -217,7 +217,6 @@ vector<int> topologicalSortBFS(vector<vector<int>> &adj)
 {
     vector<int> ans;
     int n = adj.size();
-    vector<bool> visited(n, false);
     queue<int> q;
     vector<int> indegree(n, 0);
     for (int i = 0; i < adj.size(); ++i)
@@ -246,6 +245,88 @@ vector<int> topologicalSortBFS(vector<vector<int>> &adj)
     }
     return ans;
 }
+
+bool isBipartitesDFShelper(int start, vector<vector<int>> &adj, vector<int> &color, int currColor)
+{
+    color[start] = currColor;
+    for (auto &nbr : adj[start])
+    {
+        if (currColor == color[nbr])
+            return false;
+        if (color[nbr] == -1)
+        {
+            int nextColor = 1 - currColor;
+            if (isBipartitesDFShelper(nbr, adj, color, nextColor) == false)
+                return false;
+        }
+    }
+    return true;
+}
+
+bool isBipartiteDFS(vector<vector<int>> &adj)
+{
+    int n = adj.size();
+    vector<int> color(n, -1);
+    for (int i = 0; i < n; ++i)
+    {
+        if (color[i] == -1)
+        {
+            if (isBipartitesDFShelper(i, adj, color, 1) == false)
+                return false;
+        }
+    }
+    return true;
+}
+
+// Basic DSU Implementation
+int find(int A[], int X)
+{
+    if (A[X] == X)
+        return X;
+    return find(A, A[X]);
+}
+void unionSet(int A[], int X, int Y)
+{
+    int x_parent = find(A, X);
+    int y_parent = find(A, Y);
+    if (x_parent != y_parent)
+    {
+        A[x_parent] = y_parent;
+    }
+}
+
+// DSU with path compression
+// vector<int> parent;
+// vector<int> rank;
+// int find(int x)
+// {
+//     if (parent[x] == x)
+//         return x;
+//     return parent[x] = find(parent[x]);
+// }
+// void Union(int x, int y)
+// {
+//     int x_parent = find(x);
+//     int y_parent = find(y);
+//     if (rank[x_parent] > rank[y_parent])
+//     {
+//         parent[y_parent] = x_parent;
+//     }
+//     else if (rank[x_parent] < rank[y_parent])
+//     {
+//         parent[x_parent] = y_parent;
+//     }
+//     else
+//     {
+//         parent[x_parent] = y_parent;
+//         rank[y_parent]++;
+//     }
+// }
+// parent.resize(V);
+// for (int i = 0; i < V; ++i)
+//     parent[i] = i;
+// rank.resize(V, 0);
+
 
 int main()
 {
