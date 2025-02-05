@@ -7,7 +7,7 @@ int main() {
     vector<int> petrol(n), cost(n);
     int total_petrol = 0, total_cost = 0;
     for (int i = 0; i < n; i++) {
-        cin >> petrol[i];gi
+        cin >> petrol[i];
         total_petrol += petrol[i];
     }
     for (int i = 0; i < n; i++) {
