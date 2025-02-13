@@ -13,11 +13,26 @@ int32_t main() {
         cin >> n;
         vector<int> arr(n);
         for(int& it: arr) cin >> it;
+        set<int> st;
         map<int, int> mp;
-        for(int it: arr) mp[it]++;
-        for(auto it: mp) cout << it.first << " " << it.second << endl;
-        cout << endl;
-        bool flag = false;
+        for(int& it: arr) {
+            mp[it]++;
+            st.insert(it);
+        }
+        bool flag = true;
+        while(!st.empty()) {
+            int minn = *st.begin();
+            if(mp[minn] == 1) {
+                flag = false;
+                break;
+            }
+            mp[minn + 1] += mp[minn] - 2;
+            st.erase(minn);
+            if(mp[minn+1]) st.insert(minn+1);
+            mp[minn] = 0;
+        }
+        if(flag) cout << "Yes" << endl;
+        else cout << "No" << endl;
     }
     return 0;
 }

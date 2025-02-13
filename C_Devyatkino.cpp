@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-const int minn = 1e9;
-const int maxx = 1e9;
+#define minn 1e9
+#define maxx 1e9
 #define endl '\n'
 
 int32_t main() {
@@ -12,6 +12,9 @@ int32_t main() {
     int T;
     cin >> T;
     while(T--) {
+        int n;
+        cin >> n;
+        
     }
     return 0;
 }

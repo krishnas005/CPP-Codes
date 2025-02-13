@@ -12,6 +12,16 @@ int32_t main() {
     int T;
     cin >> T;
     while(T--) {
+        int n, k;
+        cin >> n >> k;
+        bool flag = false;
+        for(int i=0; i<n; ++i) {
+            int x;
+            cin >> x;
+            if(x == k) flag = true;
+        }
+        if(flag) cout << "YES" << endl;
+        else cout << "NO" << endl;
     }
     return 0;
 }

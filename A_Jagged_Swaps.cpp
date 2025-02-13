@@ -12,6 +12,12 @@ int32_t main() {
     int T;
     cin >> T;
     while(T--) {
+        int n;
+        cin >> n;
+        vector<int> arr(n);
+        for(int& it: arr) cin >> it;
+        if(arr[0] == 1) cout << "YES" << endl;
+        else cout << "NO" << endl;
     }
     return 0;
 }
