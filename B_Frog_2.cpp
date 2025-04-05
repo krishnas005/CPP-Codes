@@ -8,7 +8,7 @@ int solve(int idx, vector<int>& arr, vector<int>& dp, int k) {
     if(dp[idx] != -1) return dp[idx];
     int res = LLONG_MAX;
     for(int j=1; j<=k; ++j) {
-        if(idx-j >= 0) {
+        if (idx-j >= 0) {
             res = min(res, solve(idx - j, arr, dp, k) + abs(arr[idx] - arr[idx - j]));
         }
     }
@@ -23,6 +23,6 @@ int32_t main() {
     vector<int> arr(n);
     for(int& it : arr) cin >> it;
     vector<int> dp(n, -1);
-    cout << solve(n - 1, arr, dp, k) gi << endl;
+    cout << solve(n - 1, arr, dp, k) << endl;
     return 0;
 }
