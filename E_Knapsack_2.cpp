@@ -3,16 +3,16 @@ using namespace std;
 #define int long long
 #define endl '\n'
 
-int solve(int idx, int n, int w, vector<pair<int, int>>& arr, unordered_map<string, int>& mp) {
-    if(idx == n) return 0;
-    string key = to_string(idx) + "_" + to_string(w);
-    if(mp.find(key) != mp.end()) return mp[key];
-    int not_pick = solve(idx+1, n, w, arr, mp);
-    int pick     = INT_MIN;
-    if(w - arr[idx].first >= 0) {
-        pick = solve(idx+1, n, w-arr[idx].first, arr, mp) + arr[idx].second;
+int solve(int idx, int val, vector<pair<int, int>>& arr, int n, vector<vector<int>>& dp) {
+    if(val == 0) return 0;
+    if(idx == n) return INT_MAX;
+    if(dp[idx][val] != -1) return dp[idx][val];
+    int not_pick = solve(idx+1, val, arr, n, dp);
+    int pick = INT_MAX;
+    if(val - arr[idx].second >= 0) {
+        pick = solve(idx+1, val-arr[idx].second, arr, n, dp) + arr[idx].first;
     }
-    return mp[key] = max(pick, not_pick);
+    return dp[idx][val] = min(pick, not_pick);
 }
 
 int32_t main() {
@@ -29,8 +29,18 @@ int32_t main() {
         cin >> a >> b;
         arr[i] = {a, b};
     }
-    unordered_map<string, int> mp;
-    int ans = solve(0, n, w, arr, mp);
+    int maxVal = 0;
+    for (auto& p : arr) {
+        maxVal += p.second; 
+    }
+    int ans = 0;
+    vector<vector<int>> dp(n+1, vector<int>(maxVal+1, -1));
+    for(int val=maxVal; val>=0; --val) {
+        if(solve(0, val, arr, n, dp) <= w) {
+            ans = val;
+            break;
+        }
+    }
     cout << ans << endl;
     return 0;
 }
