@@ -3,34 +3,37 @@ using namespace std;
 #define int long long
 #define endl '\n'
 
-unordered_map<int, int> dp;
-bool solve(int i, int d, string &p, string &s, int diff, int n, int m) {
-    int j = i + d;
-    if(i == n) return (d == diff);
-    if(j >= m || s[j] != p[i]) return false;
-    int key = ((int) i << 20) | d;
-    if(dp.find(key) != dp.end()) return dp[key];
-    bool ans = false;
-    if(solve(i + 1, d, p, s, diff, n, m)) ans = true;
-    else if (j+1 < m && s[j+1] == p[i] && d+1 <= diff && solve(i+1, d+1, p, s, diff, n, m)) ans = true;
-    return dp[key] = ans;
+bool solve(int n1, int n2, string& p, string& s) {
+    int i = 0, j = 0;
+    while(i < n1 && j < n2) {
+        char ch = p[i];
+        int curi = i, curj = j;
+        while(i < n1 && p[i] == ch) i++;
+        while(j < n2 && s[j] == ch) j++;
+        int leni = i - curi;
+        int lenj = j - curj;
+        if(lenj >= leni && lenj <= 2 * leni) {
+            continue;
+        } else {
+            return false;
+        }
+    }
+    if(i == n1 && j == n2) return true;
+    else return false;
 }
 
-int32_t main(){
+int32_t main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
     int T;
     cin >> T;
     while (T--) {
-        dp.clear(); 
         string p, s;
         cin >> p >> s;
-        int n = p.size();
-        int m = s.size();
-        int diff = m - n; 
-        bool flag = solve(0, 0, p, s, diff, n, m);
-        if(flag) cout << "YES" << endl;
+        int n1 = p.size();
+        int n2 = s.size();
+        if(solve(n1, n2, p, s)) cout << "YES" << endl;
         else cout << "NO" << endl;
     }
     return 0;
