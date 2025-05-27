@@ -25,8 +25,18 @@ int32_t main() {
     cin >> n >> x;
     vector<int> arr(n);
     for(int& it: arr) cin >> it;
-    vector<int> dp(2000000, -1);
-    int ans = solve(x, arr, dp);
-    cout << ans << endl;
+    // vector<int> dp(2000000, -1);
+    // int ans = solve(x, arr, dp);
+    // cout << ans << endl;
+    vector<int> dp(x+1, 0);
+    dp[0] = 1;
+    for(int i=1; i<=x; ++i) {
+        for(int j=0; j<n; ++j) {
+            if(arr[j] <= i) {
+                dp[i] = dp[i] + dp[i-arr[j]];
+            }
+        }
+    }
+    cout << dp[x] << endl;
     return 0;
 }
