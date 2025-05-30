@@ -1,22 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define int long long
+#define endl '\n'
 
-int main() {
+int32_t main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
     int n;
     cin >> n;
     vector<pair<int, int>> events;
-    for (int i = 0; i < n; i++) {
+    int ans = 1;
+    while(n--) {
         int a, b;
         cin >> a >> b;
-        events.push_back({a, 1}); 
+        events.push_back({a, 1});
         events.push_back({b, -1});
     }
-    sort(events.begin(), events.end());
-    int ans = 0;
+    sort(begin(events), end(events));
     int curr = 0;
-    for (auto event : events) {
-        curr += event.second; 
-        ans = max(ans, curr); 
+    for(auto& e: events) {
+        curr += e.second;
+        if(curr > 1) ans = max(ans, curr);
     }
     cout << ans << endl;
     return 0;
