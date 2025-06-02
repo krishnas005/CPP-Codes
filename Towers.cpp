@@ -11,12 +11,14 @@ int32_t main() {
     cin >> n;
     vector<int> arr(n);
     for(int& it: arr) cin >> it;
-    sort(begin(arr), end(arr));
-    int ans = 1;
-    for(int i=0; i<n; ++i) {
-        if(ans < arr[i]) break;
-        ans += arr[i];
+    multiset<int> st;
+    for(int it: arr) {
+        auto itt = st.upper_bound(it);
+        if(itt != st.end()) {
+            st.erase(itt);
+        }
+        st.insert(it);
     }
-    cout << ans << endl;
+    cout << st.size();
     return 0;
 }
